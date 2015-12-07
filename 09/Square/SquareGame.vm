@@ -4,13 +4,13 @@ call Memory.alloc 1
 pop pointer 0
 push constant 0
 push constant 0
-push constant 30
+push constant 10
 call Square.new 3
 pop this 0
+push constant 20
 push constant 0
-push constant 0
-push constant 50
-push constant 50
+push constant 20
+push constant 80
 call Wall.new 4
 pop this 1
 push constant 0

@@ -24,8 +24,9 @@ class SquareGame {
 
     /** Constructs a new Square Game. */
     constructor SquareGame new() {
-        let square = Square.new(0, 0, 30);
-        let wall = Wall.new(0, 0, 50, 50);
+        let square = Square.new(0, 0, 10);
+        //(x1, y1, x2, y2)
+        let wall = Wall.new(20, 0, 20, 80);
         let direction = 0;
 
         return this;
