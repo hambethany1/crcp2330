@@ -19,14 +19,33 @@ class SquareGame {
 
     // The wall
     field Wall wall;
+    field Wall wall2;
+    field Wall wall3;
+    field Wall wall4;
+    field Wall wall5;
+    field Wall wall6;
+    field Wall wall7;
+    field Wall wall8;
+    field Wall wall9;
+    field Wall wall10; 
+
     // The square's movement direction
     field int direction; // 0=none,1=up,2=down,3=left,4=right
 
     /** Constructs a new Square Game. */
     constructor SquareGame new() {
         let square = Square.new(0, 0, 10);
-        //(x1, y1, x2, y2)
-        let wall = Wall.new(20, 0, 20, 80);
+       
+        let wall = Wall.new(15, 0, 15 , 240);
+        let wall2 = Wall.new(15, 240, 200, 240); 
+        let wall3 = Wall.new(200, 240, 200, 80);
+        let wall4 = Wall.new(200, 80, 400, 80);
+        let wall5 = Wall.new(400, 80, 400, 60);
+        let wall6 = Wall.new(400,60, 510, 60);
+        let wall7 = Wall.new(230, 254, 230, 100);
+        let wall8 = Wall.new(230, 100, 430, 100);
+        let wall9 = Wall.new(430, 100, 430, 80);
+        let wall10 = Wall.new(430, 80, 510, 80);
         let direction = 0;
 
         return this;
@@ -36,6 +55,15 @@ class SquareGame {
     method void dispose() {
         do square.dispose();
         do wall.dispose();
+        do wall2.dispose(); 
+        do wall3.dispose();
+        do wall4.dispose();
+        do wall5.dispose();
+        do wall6.dispose();
+        do wall7.dispose();
+        do wall8.dispose();
+        do wall9.dispose();
+        do wall10.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -50,6 +78,15 @@ class SquareGame {
 
         while (~exit) {
             do wall.draw();
+           do wall2.draw(); 
+           do wall3.draw();
+           do wall4.draw();
+           do wall5.draw();
+           do wall6.draw();
+           do wall7.draw();
+           do wall8.draw();
+           do wall9.draw();
+           do wall10.draw();
             // waits for a key to be pressed.
             while (key = 0) {
                 let key = Keyboard.keyPressed();

@@ -34,4 +34,24 @@ push this 3
 call Screen.drawLine 4
 pop temp 0
 push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 2
+push this 3
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 2
+push this 3
+call Screen.drawLine 4
+pop temp 0
+push constant 0
 return

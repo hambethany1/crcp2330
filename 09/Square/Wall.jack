@@ -23,8 +23,13 @@ class Wall {
     method void draw() {
         do Screen.setColor(true);
         do Screen.drawLine(x, y, endx, endy);
+
+        do Screen.setColor(true); 
+        do Screen.drawLine(x, y, endx, endy); 
+        do Screen.setColor(true);
+        do Screen.drawLine(x, y, endx, endy);
         return;
-    }
+    } 
 
 
 
