@@ -1,0 +1,147 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/09/Square/SquareGame.jack
+
+/**
+ * Implements the Square Dance game.
+ * In this game you can move a black square around the screen and
+ * change its size during the movement.
+ * In the beginning, the square is located at the top-left corner
+ * of the screen. The arrow keys are used to move the square.
+ * The 'z' & 'x' keys are used to decrement and increment the size.
+ * The 'q' key is used to quit the game.
+ */
+class SquareGame {
+
+    // The square
+    field Square square;
+
+    // The wall
+    field Wall wall;
+    field Wall wall2;
+    field Wall wall3;
+    field Wall wall4;
+    field Wall wall5;
+    field Wall wall6;
+    field Wall wall7;
+    field Wall wall8;
+    field Wall wall9;
+    field Wall wall10; 
+
+    // The square's movement direction
+    field int direction; // 0=none,1=up,2=down,3=left,4=right
+
+    /** Constructs a new Square Game. */
+    constructor SquareGame new() {
+        let square = Square.new(0, 0, 10);
+       
+        let wall = Wall.new(15, 0, 15 , 240);
+        let wall2 = Wall.new(15, 240, 200, 240); 
+        let wall3 = Wall.new(200, 240, 200, 80);
+        let wall4 = Wall.new(200, 80, 400, 80);
+        let wall5 = Wall.new(400, 80, 400, 60);
+        let wall6 = Wall.new(400,60, 510, 60);
+        let wall7 = Wall.new(230, 254, 230, 100);
+        let wall8 = Wall.new(230, 100, 430, 100);
+        let wall9 = Wall.new(430, 100, 430, 80);
+        let wall10 = Wall.new(430, 80, 510, 80);
+        let direction = 0;
+
+        return this;
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do square.dispose();
+        do wall.dispose();
+        do wall2.dispose(); 
+        do wall3.dispose();
+        do wall4.dispose();
+        do wall5.dispose();
+        do wall6.dispose();
+        do wall7.dispose();
+        do wall8.dispose();
+        do wall9.dispose();
+        do wall10.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Starts the game. Handles inputs from the user that control
+     *  the square's movement, direction and size. */
+    method void run() {
+        var char key;
+        var boolean exit;
+
+        let exit = false;
+
+        while (~exit) {
+            do wall.draw();
+           do wall2.draw(); 
+           do wall3.draw();
+           do wall4.draw();
+           do wall5.draw();
+           do wall6.draw();
+           do wall7.draw();
+           do wall8.draw();
+           do wall9.draw();
+           do wall10.draw();
+            // waits for a key to be pressed.
+            while (key = 0) {
+                let key = Keyboard.keyPressed();
+                do moveSquare();
+            }
+
+            if (key = 81) {
+                let exit = true;
+            }
+            /**if (key = 90) {
+                do square.decSize();
+            }*/
+            /**if (key = 88) {
+                do square.incSize();
+            }*/
+
+            if (key = 131) {
+                let direction = 1;
+            }
+            if (key = 133) {
+                let direction = 2;
+            }
+            if (key = 130) {
+                let direction = 3;
+            }
+            if (key = 132) {
+                let direction = 4;
+            }
+
+            // waits for the key to be released.
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do moveSquare();
+            }
+        }
+            
+        return;
+	}
+
+    /** Moves the square by 2 pixels in the current direction. */
+    method void moveSquare() {
+        if (direction = 1) {
+            do square.moveUp();
+        }
+        if (direction = 2) {
+            do square.moveDown();
+        }
+        if (direction = 3) {
+            do square.moveLeft();
+        }
+        if (direction = 4) {
+            do square.moveRight();
+        }
+
+        do Sys.wait(5); // Delays the next movement.
+        return;
+    }
+}
