@@ -8,6 +8,12 @@ def is_readable?(path)
   File.readable?(path)
 end
 
+def hack_filename(asm_filename)
+  asm_basename = File.basename(asm_filename, '.asm')
+  path = File.split(asm_filename)[0]
+  "#{path}/#{asm_basename}.hack"
+end
+
 unless args_valid?
   abort("Usage: ./assembler.rb Prog.asm")
 end
@@ -18,6 +24,10 @@ unless is_readable?(asm_filename)
   abort("#{asm_filename} is not found or is unreadable.")
 end
 
-puts "The contents of #{asm_filename}"
-asm_file = File.open(asm_filename)
-puts asm_file.read 
+File.open(asm_filename, 'r') do |asm_file|
+  File.open(hack_filename(asm_filename), 'w') do |hack_file|
+  	assembler = Assembler.new(asm_file, hack_file)
+  	assembler.assemble!
+  end
+
+end
