@@ -1,25 +1,25 @@
 #! /usr/bin/env ruby
 
+require_relative 'parser'
+
 class Assembler
 
-  def initialize(asm_file,hack_file)
+  def initialize(asm_file, hack_file)
     @asm_file = asm_file
     @hack_file = hack_file
-    @asm_instructions = instructions_from_file
-    p @asm_instructions
-    @parser = Parser.new(@asm_instructions)
+    @parser = Parser.new(instructions_from_file)
   end
 
   def assemble!
-    puts @asm_file.read
+   hack_instructions = @parser.parse
+   hack_instructions.each do |instruction|
+    @hack_file << instruction << "\n"
   end
+end
 
   def instructions_from_file
     lines = @asm_file.readlines
-    lines.each do |line|
-      line.gsub! /\/\/.*/, ''
-      line.strip!
-   end 
+    lines.each { |line| line.gsub! /\/\/.*/, ''; line.strip! }  
     lines.delete("")
     return lines
   end
@@ -50,10 +50,9 @@ unless is_readable?(asm_filename)
   abort("#{asm_filename} is not found or is unreadable.")
 end
 
-File.open(asm_filename, 'r') do |asm_file|
+File.open(asm_filename) do |asm_file|
   File.open(hack_filename(asm_filename), 'w') do |hack_file|
   	assembler = Assembler.new(asm_file, hack_file)
   	assembler.assemble!
   end
-
-end
+end 
