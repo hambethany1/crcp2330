@@ -5,10 +5,23 @@ class Assembler
   def initialize(asm_file,hack_file)
     @asm_file = asm_file
     @hack_file = hack_file
+    @asm_instructions = instructions_from_file
+    p @asm_instructions
+    @parser = Parser.new(@asm_instructions)
   end
 
   def assemble!
     puts @asm_file.read
+  end
+
+  def instructions_from_file
+    lines = @asm_file.readlines
+    lines.each do |line|
+      line.gsub! /\/\/.*/, ''
+      line.strip!
+   end 
+    lines.delete("")
+    return lines
   end
 
 end
