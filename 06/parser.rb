@@ -1,8 +1,12 @@
+
+require_relative 'code'
+
 class Parser
 
   def initialize(assembly_instructions)
   	@assembly_instructions = assembly_instructions
   	@machine_instructions = []
+  	@codeg = Code.new()
   end 
 
  def parse
@@ -26,8 +30,31 @@ end
   end
 
   def assemble_c_command(instruction)
-  	command = "111"
-  	# TODO
+  	command = "111" 
+  	command << @codeg.comp(split_comp(instruction))
+  	command << @codeg.dest(split_dest(instruction))
+  	command << @codeg.jump(split_jump(instruction)) 
+  end
+
+  def split_dest(instruction)
+  	if instruction.include?("=")
+  		instruction.split("=")[0]
+	end
+  end
+
+  def split_comp(instruction)
+  	if instruction.include?("=")
+  		instruction.split("=")[1]
+  	elsif 
+  		instruction.include?(";")
+  		instruction.split(";")[0]
+	end  		
+	end
+
+  def split_jump(instruction)
+  	if instruction.include?(";")
+  		instruction.split(";")[1]
+  	end
   end
 
   def command_type(instruction)
