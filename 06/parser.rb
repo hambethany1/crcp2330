@@ -2,7 +2,6 @@ class Parser
 
   def initialize(assembly_instructions)
   	@assembly_instructions = assembly_instructions
-  	puts @assembly_instructions
   	@machine_instructions = []
   end 
 
@@ -12,8 +11,7 @@ class Parser
  			@machine_instructions << assemble_a_command(instruction)
  		elsif command_type(instruction) == :c_command
  		    @machine_instructions << assemble_c_command(instruction)
- 		    end
-
+ 		end
  	end
  	@machine_instructions
 end
@@ -29,6 +27,7 @@ end
 
   def assemble_c_command(instruction)
   	command = "111"
+  	# TODO
   end
 
   def command_type(instruction)
